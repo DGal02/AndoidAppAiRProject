@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "383521493755",
+    "project_id": "androidstudioair",
+    "storage_bucket": "androidstudioair.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:383521493755:android:c7dbc0132bfea34f1b965e",
+        "android_client_info": {
+          "package_name": "com.example.projectair"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvN8_J6AC6HfNddW68yJMLIftOZ1VqJPE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
