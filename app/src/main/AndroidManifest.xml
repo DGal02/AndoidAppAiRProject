@@ -17,6 +17,7 @@
         <activity
             android:name=".MainApp"
             android:theme="@style/Theme.Material3.Light.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustPan"
             android:exported="false" />
         <activity
             android:name=".Registration"
