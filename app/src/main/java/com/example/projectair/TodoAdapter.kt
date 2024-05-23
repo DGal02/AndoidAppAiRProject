@@ -7,9 +7,11 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.database.DatabaseReference
 
 class TodoAdapter(
-    private val todos: MutableList<Todo>
+    private val todos: MutableList<Todo>,
+    private val firebase: DatabaseReference
 ) : RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
     class TodoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
@@ -32,7 +34,16 @@ class TodoAdapter(
         todos.removeAll { todo ->
             todo.isChecked
         }
+        this.updateFirebase()
         notifyDataSetChanged()
+    }
+
+    fun updateFirebase() {
+
+        firebase.removeValue()
+        todos.forEach { element ->
+            firebase.push().setValue(element)
+        }
     }
 
     private fun toggleStrikeThrough(tVTodoTitle: TextView, isChecked: Boolean) {
@@ -54,8 +65,13 @@ class TodoAdapter(
             doneCheckBox.setOnCheckedChangeListener { _, isChecked ->
                 toggleStrikeThrough(todoTitleTextView, isChecked)
                 curTodo.isChecked = !curTodo.isChecked
+                updateFirebase()
             }
         }
+    }
+
+    fun getTodos(): MutableList<Todo> {
+        return todos
     }
 
     override fun getItemCount(): Int {
