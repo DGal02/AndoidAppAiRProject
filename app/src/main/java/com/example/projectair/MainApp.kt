@@ -1,9 +1,11 @@
 package com.example.projectair
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -19,6 +21,10 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
+import com.google.gson.Gson
+import java.io.InputStreamReader
+import java.net.HttpURLConnection
+import java.net.URL
 
 class MainApp : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
@@ -34,6 +40,7 @@ class MainApp : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        fetchData().start()
         auth = Firebase.auth
         val buttonLogout = findViewById<Button>(R.id.logout)
         val user = auth.currentUser
@@ -92,4 +99,33 @@ class MainApp : AppCompatActivity() {
             todoAdapter.deleteDoneTodos()
         }
     }
+
+    private fun fetchData(): Thread {
+        return Thread {
+            val textTime = findViewById<TextView>(R.id.timeAPI)
+            val url = URL("https://timeapi.io/api/Time/current/zone?timeZone=Europe/Amsterdam")
+            val connection = url.openConnection() as HttpURLConnection
+            if (connection.responseCode == 200) {
+                val inputSystem = connection.inputStream
+                val inputStreamReader = InputStreamReader(inputSystem, "UTF-8")
+                val request = Gson().fromJson(inputStreamReader, Request::class.java)
+                updateTime(request)
+                inputStreamReader.close()
+                inputSystem.close()
+                fetchData().start()
+            } else {
+                textTime.text = String.format("Request Error")
+            }
+        }
+    }
+
+    private fun updateTime(request: Request) {
+        runOnUiThread {
+            kotlin.run {
+                val textTime = findViewById<TextView>(R.id.timeAPI)
+                textTime.text = String.format("%02d:%02d:%02d %02d.%02d.%04d", request.hour, request.minute, request.seconds, request.day, request.month , request.year)
+            }
+        }
+    }
+
 }

@@ -11,4 +11,5 @@
     <string name="add_todo">Add Todo</string>
     <string name="delete_done">Delete done</string>
     <string name="example">Example</string>
+    <string name="_00_00_00">00:00:00 0000.00.00</string>
 </resources>
