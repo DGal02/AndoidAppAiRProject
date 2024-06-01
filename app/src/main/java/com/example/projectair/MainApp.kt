@@ -43,6 +43,12 @@ class MainApp : AppCompatActivity() {
         fetchData().start()
         auth = Firebase.auth
         val buttonLogout = findViewById<Button>(R.id.logout)
+        val textTime = findViewById<TextView>(R.id.timeAPI)
+        textTime.setOnClickListener{
+            val intent = Intent(this, clock::class.java)
+            startActivity(intent)
+            finish()
+        }
         val user = auth.currentUser
         if (user == null) {
             val intent = Intent(this, Login::class.java)
@@ -60,6 +66,8 @@ class MainApp : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+
+
         val startingTodoList = mutableListOf<Todo>()
         fireBaseRef.get().addOnCompleteListener { task ->
             if (task.isSuccessful) {
