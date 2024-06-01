@@ -28,4 +28,9 @@
         android:id="@+id/info"
         android:layout_marginTop="40dp"
         android:layout_height="wrap_content"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/goToGlider"
+        android:text="@string/glider"/>
 </LinearLayout>

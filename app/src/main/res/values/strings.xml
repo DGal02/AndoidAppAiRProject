@@ -17,4 +17,6 @@
     <string name="info">Info</string>
     <string name="init_text">init text</string>
     <string name="initial_info">Initial info</string>
+    <string name="change_image">Change Image</string>
+    <string name="glider">Glider</string>
 </resources>

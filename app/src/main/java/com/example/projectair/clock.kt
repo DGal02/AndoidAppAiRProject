@@ -20,6 +20,7 @@ class clock : AppCompatActivity() {
         }
         val buttonGoBack = findViewById<Button>(R.id.buttonGoBack)
         val buttonGyro = findViewById<Button>(R.id.info)
+        val buttonGlider = findViewById<Button>(R.id.goToGlider)
         buttonGoBack.setOnClickListener {
             val intent = Intent(this, MainApp::class.java)
             startActivity(intent)
@@ -27,6 +28,11 @@ class clock : AppCompatActivity() {
         }
         buttonGyro.setOnClickListener {
             val intent = Intent(this, gyro::class.java)
+            startActivity(intent)
+            finish()
+        }
+        buttonGlider.setOnClickListener {
+            val intent = Intent(this, glider::class.java)
             startActivity(intent)
             finish()
         }
