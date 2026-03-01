@@ -120,6 +120,7 @@ class MainApp : AppCompatActivity() {
                 updateTime(request)
                 inputStreamReader.close()
                 inputSystem.close()
+                Thread.sleep(1000)
                 fetchData().start()
             } else {
                 textTime.text = String.format("Request Error")
